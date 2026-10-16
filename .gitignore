@@ -1,0 +1,5 @@
+result
+result-*
+.direnv/
+.DS_Store
+home/karabiner/automatic_backups/
