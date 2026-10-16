@@ -4,7 +4,6 @@
     ripgrep
     fd
     jq
-    gh
     age
     nmap
     swaks

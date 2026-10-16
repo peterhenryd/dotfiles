@@ -31,4 +31,12 @@
       help.autocorrect = "prompt";
     };
   };
+
+  # GitHub CLI. Its login (kept in hosts.yml and the macOS keychain) doubles as
+  # git's credential helper for github.com, so HTTPS remotes authenticate
+  # without an SSH key.
+  programs.gh = {
+    enable = true;
+    settings.git_protocol = "https";
+  };
 }
