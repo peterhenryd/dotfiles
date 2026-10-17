@@ -64,10 +64,11 @@ configs link to that working copy, so changes they write show up in
    Open Syntax Highlight once so macOS finds its Quick Look extension. Its
    settings live where this config doesn't reach, so set them in the app:
    View → Show advanced settings, then under General keep the RTF rendering
-   engine, turn off "Show about info", and pick color schemes that look dark.
-   RTF previews don't follow dark mode
-   (github.com/sbarex/SourceCodeSyntaxHighlight/issues/309); HTML previews
-   do, but open at a fixed size instead of fitting the file.
+   engine, turn off "Show about info", and set the color scheme for dark
+   appearance to a light scheme: in dark mode, RTF previews show a light
+   scheme as dark and a dark one as light
+   (github.com/sbarex/SourceCodeSyntaxHighlight/issues/309). HTML previews
+   follow dark mode, but open at a fixed size instead of fitting the file.
 7. `nix run ~/.config/dotfiles#swipeaerospace`, then allow it under
    Accessibility.
 8. Let iCloud Drive download `~/Documents/Recovery/Vault.kdbx`, then restore
