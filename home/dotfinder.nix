@@ -31,10 +31,6 @@
           path = "~/.config/git/identity";
           mode = "644";
         }
-        {
-          path = "~/.config/age/mail-backup.txt";
-          mode = "600";
-        }
       ];
     };
   };
