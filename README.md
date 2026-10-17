@@ -63,8 +63,11 @@ configs link to that working copy, so changes they write show up in
 6. Open AeroSpace and Karabiner-Elements once and grant what they ask for.
    Open Syntax Highlight once so macOS finds its Quick Look extension. Its
    settings live where this config doesn't reach, so set them in the app:
-   View → Show advanced settings, then under General choose the HTML
-   rendering engine and turn off "Show about info".
+   View → Show advanced settings, then under General keep the RTF rendering
+   engine, turn off "Show about info", and pick color schemes that look dark.
+   RTF previews don't follow dark mode
+   (github.com/sbarex/SourceCodeSyntaxHighlight/issues/309); HTML previews
+   do, but open at a fixed size instead of fitting the file.
 7. `nix run ~/.config/dotfiles#swipeaerospace`, then allow it under
    Accessibility.
 8. Let iCloud Drive download `~/Documents/Recovery/Vault.kdbx`, then restore
