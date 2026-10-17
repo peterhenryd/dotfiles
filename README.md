@@ -31,7 +31,7 @@ configs link to that working copy, so changes they write show up in
 
 ## Daily use
 
-- `rebuild`: apply the config (`dotfinder rebuild`). It warns about Homebrew
+- `dotfinder rebuild`: apply the config. It warns about Homebrew
   packages the switch would uninstall, switches, then records a baseline.
 - `dotfinder drift`: what changed on the Mac since the last rebuild.
 - `dotfinder audit`: everything on the Mac the config doesn't capture.
@@ -39,7 +39,8 @@ configs link to that working copy, so changes they write show up in
   config or ignoring it. Commit `dotfinder/` afterwards.
 - `dotfinder vault backup`: save the private files listed in
   `home/dotfinder.nix` into the vault.
-- `nix flake update` then `rebuild`: update everything, including cask versions.
+- `nix flake update` then `dotfinder rebuild`: update everything, including
+  cask versions.
 - Hyper + /: AeroSpace cheat sheet (Hyper = hold Caps Lock).
 - New GUI app: add its cask to `modules/darwin/homebrew.nix`. Anything
   installed with `brew` but not listed there is removed on the next rebuild.

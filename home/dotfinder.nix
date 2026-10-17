@@ -9,9 +9,6 @@
 {
   home.packages = [ inputs.dotfinder.packages.${pkgs.stdenv.hostPlatform.system}.default ];
 
-  # Checks what the switch would uninstall, switches, records a new baseline.
-  programs.zsh.shellAliases.rebuild = "dotfinder rebuild";
-
   xdg.configFile."dotfinder/config.json".text = builtins.toJSON {
     dotfiles = config.dotfiles.path;
     vault = {
