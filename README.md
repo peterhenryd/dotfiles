@@ -37,11 +37,15 @@ configs link to that working copy, so changes they write show up in
 - `dotfinder drift`: what changed on the Mac since the last rebuild.
 - `dotfinder audit`: everything on the Mac the config doesn't capture.
 - `dotfinder adopt`: go through those changes one by one, adding each to the
-  config or ignoring it. Commit `dotfinder/` afterwards.
+  config or ignoring it. Commit `dotfinder/` afterwards. Private ignores stay
+  out of the repo; `dotfinder vault backup` saves them.
 - `dotfinder vault backup`: save the private files listed in
   `home/dotfinder.nix` into the vault.
-- `nix flake update` then `dotfinder rebuild`: update everything, including
-  cask versions.
+- `nix flake update`, `dotfinder rebuild`, then `brew upgrade`: update
+  everything. The rebuild picks up new Nix packages and Homebrew's package
+  lists but never upgrades an installed app; `brew upgrade` does, except for
+  apps that update themselves (such as Parallels), which it leaves to their
+  own updaters.
 - Hyper + /: AeroSpace cheat sheet, in TextEdit (Hyper = hold Caps Lock).
 - New GUI app: add its cask to `modules/darwin/homebrew.nix`. Anything
   installed with `brew` but not listed there is removed on the next rebuild.

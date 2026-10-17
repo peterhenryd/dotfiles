@@ -28,6 +28,11 @@
           path = "~/.config/git/identity";
           mode = "644";
         }
+        # dotfinder's private ignore rules, kept out of this repo.
+        {
+          path = "~/.local/share/dotfinder/ignored.json";
+          mode = "600";
+        }
       ];
     };
   };
