@@ -145,6 +145,10 @@ in
       };
       # Apple's personalized ads are off.
       "com.apple.AdLib".allowApplePersonalizedAdvertising = false;
+      # Syntax Highlight renders Quick Look previews with its HTML engine. Its
+      # default RTF engine shows the light color scheme even in dark mode
+      # (github.com/sbarex/SourceCodeSyntaxHighlight/issues/309).
+      "org.sbarex.SourceCodeSyntaxHighlight".format = "html";
     };
   };
 }

@@ -42,7 +42,7 @@ configs link to that working copy, so changes they write show up in
   `home/dotfinder.nix` into the vault.
 - `nix flake update` then `dotfinder rebuild`: update everything, including
   cask versions.
-- Hyper + /: AeroSpace cheat sheet (Hyper = hold Caps Lock).
+- Hyper + /: AeroSpace cheat sheet, in TextEdit (Hyper = hold Caps Lock).
 - New GUI app: add its cask to `modules/darwin/homebrew.nix`. Anything
   installed with `brew` but not listed there is removed on the next rebuild.
 - App that should start at login: add it to `modules/darwin/login-items.nix`
@@ -61,6 +61,8 @@ configs link to that working copy, so changes they write show up in
    `<name>.before-nix-darwin` and run it again.
 5. Log out and back in.
 6. Open AeroSpace and Karabiner-Elements once and grant what they ask for.
+   Open Syntax Highlight once, then turn on its extension in System Settings
+   (search for "Quick Look").
 7. `nix run ~/.config/dotfiles#swipeaerospace`, then allow it under
    Accessibility.
 8. Let iCloud Drive download `~/Documents/Recovery/Vault.kdbx`, then restore

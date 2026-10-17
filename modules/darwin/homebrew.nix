@@ -51,6 +51,9 @@ in
       # Password vault for keys, recovery codes and private config files;
       # also installs keepassxc-cli.
       "keepassxc"
+      # Quick Look previews of source files (TOML, Nix, Rust, …) with syntax
+      # highlighting. Its extension stays off until enabled in System Settings.
+      "syntax-highlight"
 
       # Already installed with brew before this config
       "adobe-creative-cloud"

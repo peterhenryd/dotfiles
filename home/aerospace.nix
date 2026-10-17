@@ -12,7 +12,7 @@
 let
   toml = pkgs.formats.toml { };
   aerospaceBin = "/opt/homebrew/bin/aerospace";
-  cheatsheetPath = "${config.xdg.configHome}/aerospace/cheatsheet.txt";
+  cheatsheetPath = "${config.xdg.dataHome}/aerospace/AeroSpace keys.txt";
 
   hyper = "ctrl-alt-cmd";
   hyperShift = "ctrl-alt-shift-cmd";
@@ -63,8 +63,8 @@ let
       title = "Other";
       binds = [
         (bind hyper "enter" "exec-and-forget open -na Ghostty" "New Ghostty window")
-        (bind hyper "slash" "exec-and-forget /usr/bin/qlmanage -p '${cheatsheetPath}' >/dev/null 2>&1"
-          "This cheat sheet (Space or Esc closes it)"
+        (bind hyper "slash" "exec-and-forget /usr/bin/open -a TextEdit '${cheatsheetPath}'"
+          "This cheat sheet, in TextEdit (⌘W closes it)"
         )
         (bind hyper "semicolon" "mode service" "Service mode (below)")
       ];
@@ -223,7 +223,12 @@ in
     '';
   };
 
-  xdg.configFile."aerospace/cheatsheet.txt".text = cheatsheet;
+  # A real, read-only file instead of a link into the Nix store: TextEdit
+  # titles the window with its name and opens it locked.
+  home.activation.aerospaceCheatsheet = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run ${pkgs.coreutils}/bin/install -D -m 444 \
+      ${pkgs.writeText "aerospace-keys.txt" cheatsheet} ${lib.escapeShellArg cheatsheetPath}
+  '';
 
   # ⌃⌥⌘8 is macOS's "Invert colors" shortcut, which would swallow Hyper+8.
   # 21 is its ID in the symbolic hotkeys table; -dict-add changes only it.
