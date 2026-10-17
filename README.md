@@ -61,8 +61,10 @@ configs link to that working copy, so changes they write show up in
    `<name>.before-nix-darwin` and run it again.
 5. Log out and back in.
 6. Open AeroSpace and Karabiner-Elements once and grant what they ask for.
-   Open Syntax Highlight once, then turn on its extension in System Settings
-   (search for "Quick Look").
+   Open Syntax Highlight once so macOS finds its Quick Look extension. Its
+   settings live where this config doesn't reach, so set them in the app:
+   View → Show advanced settings, then under General choose the HTML
+   rendering engine and turn off "Show about info".
 7. `nix run ~/.config/dotfiles#swipeaerospace`, then allow it under
    Accessibility.
 8. Let iCloud Drive download `~/Documents/Recovery/Vault.kdbx`, then restore
