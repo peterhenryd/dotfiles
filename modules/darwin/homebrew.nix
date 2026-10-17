@@ -48,6 +48,9 @@ in
       # New with this config
       "nikitabobko/tap/aerospace"
       "karabiner-elements"
+      # Password vault for keys, recovery codes and private config files;
+      # also installs keepassxc-cli.
+      "keepassxc"
 
       # Already installed with brew before this config
       "adobe-creative-cloud"
@@ -80,7 +83,6 @@ in
     # bring one under Homebrew: quit it, move the .app to the Trash (its data
     # in ~/Library stays), uncomment it, and switch.
     #
-    #   "keepassxc"          # pending the vault decision
     #   "anki"
     #   "bruno"
     #   "discord"

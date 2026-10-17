@@ -17,9 +17,6 @@
       ignoreSpace = true;
       expireDuplicatesFirst = true;
     };
-    shellAliases = {
-      rebuild = "sudo darwin-rebuild switch --flake ${config.dotfiles.path}";
-    };
   };
 
   programs.fzf.enable = true; # ⌃R history search, ⌃T file picker

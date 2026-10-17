@@ -45,12 +45,13 @@ let
       ];
     }
     {
-      title = "Layout";
+      title = "Layout (applies to the focused window's group)";
       binds = [
-        (bind hyper "a" "layout accordion horizontal vertical"
-          "Accordion: stack windows, edges of the others stay visible (again: flip)"
+        (bind hyper "t" "layout tiles accordion"
+          "Tiles (side by side) / accordion (stacked, edges of the others visible)"
         )
-        (bind hyper "t" "layout tiles horizontal vertical" "Tiles: side by side (again: flip)")
+        (bind hyper "r" "layout horizontal vertical" "Rotate: left-to-right / top-to-bottom")
+        (bind hyper "arrows" null "Join with the neighbor in that direction, making a group")
         (bind hyper "f" "layout floating tiling" "Float / tile the window")
         (bind hyperShift "f" "fullscreen" "Fullscreen within AeroSpace")
         (bind hyper "minus" "resize smart -50" "Shrink the window")
@@ -77,20 +78,21 @@ let
         (bind "" "esc" [ "reload-config" "mode main" ] "Reload config, back to normal")
         (bind "" "r" [ "flatten-workspace-tree" "mode main" ] "Reset the workspace layout")
         (bind "" "backspace" [ "close-all-windows-but-current" "mode main" ] "Close all other windows")
-        (bind "" "h" [ "join-with left" "mode main" ] "Join with the window to the left")
-        (bind "" "j" [ "join-with down" "mode main" ] "Join with the window below")
-        (bind "" "k" [ "join-with up" "mode main" ] "Join with the window above")
-        (bind "" "l" [ "join-with right" "mode main" ] "Join with the window to the right")
       ];
     }
   ];
 
-  # "1-9" rows expand into one binding per workspace.
+  # Grouped rows expand into one binding per key: "1-9" per workspace,
+  # "arrows" per direction.
+  directions = [
+    "left"
+    "down"
+    "up"
+    "right"
+  ];
   expand =
     b:
-    if b.key != "1-9" then
-      [ b ]
-    else
+    if b.key == "1-9" then
       map (
         n:
         b
@@ -98,7 +100,18 @@ let
           key = n;
           cmd = if b.mods == hyper then "workspace ${n}" else "move-node-to-workspace ${n}";
         }
-      ) workspaces;
+      ) workspaces
+    else if b.key == "arrows" then
+      map (
+        d:
+        b
+        // {
+          key = d;
+          cmd = "join-with ${d}";
+        }
+      ) directions
+    else
+      [ b ];
 
   toBindings =
     sections:
@@ -124,6 +137,7 @@ let
     equal = "=";
     esc = "Esc";
     backspace = "Delete";
+    arrows = "Arrow keys";
   };
   showKey = k: keyLabel.${k} or (lib.toUpper k);
   row =

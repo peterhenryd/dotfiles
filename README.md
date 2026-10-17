@@ -5,8 +5,9 @@ user config, and nix-homebrew for GUI apps with pinned taps. A reset Mac goes
 back to this state with a clone and one command.
 
 No keys, tokens or private host details live here. A pre-commit hook and
-`nix flake check` both refuse key material. Those things live in an encrypted
-vault and are restored separately.
+`nix flake check` both refuse key material. Those things live in a KeePassXC
+vault, and [dotfinder](https://github.com/peterhenryd/dotfinder) backs them up
+and restores them.
 
 ## Layout
 
@@ -14,9 +15,12 @@ vault and are restored separately.
 flake.nix                  inputs, the host, apps, checks
 hosts/peters-macbook-pro.nix
 modules/darwin/            system: defaults, security, Homebrew, Nix
+  adopted.nix              reads dotfinder/adopted.json
 home/                      user: zsh, git, Ghostty, Neovim, AeroSpace, Karabiner
   nvim/                    plain Lua, linked into ~/.config/nvim
   karabiner/               linked into ~/.config/karabiner
+  dotfinder.nix            dotfinder and its config, including the vault's file list
+dotfinder/                 written by `dotfinder adopt`: adopted items, ignore rules
 apps/swipeaerospace.nix    `nix run .#swipeaerospace`
 scripts/check-no-keys.sh   used by the pre-commit hook and `nix flake check`
 ```
@@ -27,9 +31,16 @@ configs link to that working copy, so changes they write show up in
 
 ## Daily use
 
-- `rebuild`: apply the config (alias for `sudo darwin-rebuild switch --flake ~/.config/dotfiles`)
-- `nix flake update` then `rebuild`: update everything, including cask versions
-- Hyper + /: AeroSpace cheat sheet (Hyper = hold Caps Lock)
+- `rebuild`: apply the config (`dotfinder rebuild`). It warns about Homebrew
+  packages the switch would uninstall, switches, then records a baseline.
+- `dotfinder drift`: what changed on the Mac since the last rebuild.
+- `dotfinder audit`: everything on the Mac the config doesn't capture.
+- `dotfinder adopt`: go through those changes one by one, adding each to the
+  config or ignoring it. Commit `dotfinder/` afterwards.
+- `dotfinder vault backup`: save the private files listed in
+  `home/dotfinder.nix` into the vault.
+- `nix flake update` then `rebuild`: update everything, including cask versions.
+- Hyper + /: AeroSpace cheat sheet (Hyper = hold Caps Lock).
 - New GUI app: add its cask to `modules/darwin/homebrew.nix`. Anything
   installed with `brew` but not listed there is removed on the next rebuild.
 
@@ -48,4 +59,6 @@ configs link to that working copy, so changes they write show up in
 6. Open AeroSpace and Karabiner-Elements once and grant what they ask for.
 7. `nix run ~/.config/dotfiles#swipeaerospace`, then allow it under
    Accessibility.
-8. Restore keys and identity from the vault.
+8. Let iCloud Drive download `~/Documents/Recovery/Vault.kdbx`, then restore
+   the private files: `dotfinder vault restore`.
+9. `dotfinder baseline`.

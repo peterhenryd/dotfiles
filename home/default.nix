@@ -14,6 +14,7 @@
     ./aerospace.nix
     ./karabiner.nix
     ./swipeaerospace.nix
+    ./dotfinder.nix
   ];
 
   options.dotfiles.path = lib.mkOption {
@@ -34,7 +35,7 @@
 
     home.activation = {
       screenshotsDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        run mkdir -p "$HOME/Pictures/Screenshots"
+        run mkdir -p "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Screenshots"
       '';
       # Point the repo at its pre-commit hook, which blocks key material.
       dotfilesHooks = lib.hm.dag.entryAfter [ "writeBoundary" ] ''

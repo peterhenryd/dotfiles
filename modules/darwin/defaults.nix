@@ -21,25 +21,28 @@ in
       AppleKeyboardUIMode = 3;
 
       # Text --------------------------------------------------------------
-      # Typed text is left as typed: no auto-capitalization, smart dashes,
-      # double-space periods, smart quotes, autocorrect or inline predictions.
-      NSAutomaticCapitalizationEnabled = false;
-      NSAutomaticDashSubstitutionEnabled = false;
+      # Sentences start with a capital letter automatically.
+      NSAutomaticCapitalizationEnabled = true;
+      # Straight quotes become curly (" → “ ”) and -- becomes an em dash.
+      NSAutomaticQuoteSubstitutionEnabled = true;
+      NSAutomaticDashSubstitutionEnabled = true;
+      # Misspellings are corrected as you type.
+      NSAutomaticSpellingCorrectionEnabled = true;
+      # Predicted words appear inline as you type; Tab accepts them.
+      NSAutomaticInlinePredictionEnabled = true;
+      # Two spaces stay two spaces (no automatic period).
       NSAutomaticPeriodSubstitutionEnabled = false;
-      NSAutomaticQuoteSubstitutionEnabled = false;
-      NSAutomaticSpellingCorrectionEnabled = false;
-      NSAutomaticInlinePredictionEnabled = false;
 
       # Files and dialogs -----------------------------------------------------
-      # File extensions are always shown.
-      AppleShowAllExtensions = true;
+      # File extensions are hidden where the app or file type hides them.
+      AppleShowAllExtensions = false;
       # Save and print panels open in their expanded form.
       NSNavPanelExpandedStateForSaveMode = true;
       NSNavPanelExpandedStateForSaveMode2 = true;
       PMPrintingExpandedStateForPrint = true;
       PMPrintingExpandedStateForPrint2 = true;
-      # New documents default to saving on disk rather than iCloud.
-      NSDocumentSaveNewDocumentsToCloud = false;
+      # Saving a new document suggests a folder in iCloud Drive (Apple's default).
+      NSDocumentSaveNewDocumentsToCloud = true;
 
       # Windows -----------------------------------------------------------
       # Sheets and window resizes animate almost instantly.
@@ -57,8 +60,8 @@ in
       show-recents = false;
       # Icons of hidden apps are dimmed.
       showhidden = true;
-      # Launching an app doesn't bounce its icon.
-      launchanim = false;
+      # App icons bounce while the app launches.
+      launchanim = true;
       # Minimized windows go into their app's icon instead of a separate tile.
       minimize-to-application = true;
       # Spaces stay in a fixed order instead of reordering by recent use.
@@ -73,8 +76,8 @@ in
     };
 
     finder = {
-      # File extensions are always shown.
-      AppleShowAllExtensions = true;
+      # Finder hides file extensions where macOS normally does.
+      AppleShowAllExtensions = false;
       # Path bar and status bar along the bottom of each window.
       ShowPathbar = true;
       ShowStatusBar = true;
@@ -94,8 +97,8 @@ in
     };
 
     trackpad = {
-      # Tap to click.
-      Clicking = true;
+      # A click needs a physical press; tapping the trackpad doesn't click.
+      Clicking = false;
       # Three-finger drag. It replaces three-finger swipes, which is why
       # SwipeAeroSpace uses four fingers and the native four-finger swipes
       # are off.
@@ -107,11 +110,11 @@ in
     };
 
     screencapture = {
-      # Screenshots are PNGs without window shadows, saved to
-      # ~/Pictures/Screenshots.
-      location = "${home}/Pictures/Screenshots";
+      # Screenshots are PNGs saved to Screenshots in iCloud Drive; window
+      # screenshots keep their shadow.
+      location = "${home}/Library/Mobile Documents/com~apple~CloudDocs/Screenshots";
       type = "png";
-      disable-shadow = true;
+      disable-shadow = false;
       # Screenshots save immediately, without the floating thumbnail.
       show-thumbnail = false;
     };

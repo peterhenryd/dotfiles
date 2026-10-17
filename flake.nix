@@ -41,6 +41,12 @@
       flake = false;
     };
 
+    # Drift detection, adoption and the vault (home/dotfinder.nix).
+    dotfinder = {
+      url = "github:peterhenryd/dotfinder";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Built locally with Xcode by `nix run .#swipeaerospace` (see apps/).
     swipeaerospace = {
       url = "github:MediosZ/SwipeAeroSpace";

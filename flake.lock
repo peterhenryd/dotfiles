@@ -17,6 +17,26 @@
         "type": "github"
       }
     },
+    "dotfinder": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792245545,
+        "narHash": "sha256-fOu2FeppInAj0O686Y3Wdocvi0qcb7z/equp7ETmp6A=",
+        "owner": "peterhenryd",
+        "repo": "dotfinder",
+        "rev": "feac6ddff681814bfd150f09991f4b1667d863e1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "peterhenryd",
+        "repo": "dotfinder",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -145,6 +165,7 @@
     "root": {
       "inputs": {
         "brew-src": "brew-src",
+        "dotfinder": "dotfinder",
         "home-manager": "home-manager",
         "homebrew-aerospace": "homebrew-aerospace",
         "homebrew-cask": "homebrew-cask",
