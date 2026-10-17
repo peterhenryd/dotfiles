@@ -24,11 +24,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792245545,
-        "narHash": "sha256-fOu2FeppInAj0O686Y3Wdocvi0qcb7z/equp7ETmp6A=",
+        "lastModified": 1792247852,
+        "narHash": "sha256-aOmsOC1+H7ZBCYxdE2zcHW2euy8W74fCuE69DZqsQ48=",
         "owner": "peterhenryd",
         "repo": "dotfinder",
-        "rev": "feac6ddff681814bfd150f09991f4b1667d863e1",
+        "rev": "98a8e92079fbb21bf0f28051079f028f2dcc3d6c",
         "type": "github"
       },
       "original": {

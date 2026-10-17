@@ -15,6 +15,7 @@ and restores them.
 flake.nix                  inputs, the host, apps, checks
 hosts/peters-macbook-pro.nix
 modules/darwin/            system: defaults, security, Homebrew, Nix
+  login-items.nix          apps started at login
   adopted.nix              reads dotfinder/adopted.json
 home/                      user: zsh, git, Ghostty, Neovim, AeroSpace, Karabiner
   nvim/                    plain Lua, linked into ~/.config/nvim
@@ -44,6 +45,8 @@ configs link to that working copy, so changes they write show up in
 - Hyper + /: AeroSpace cheat sheet (Hyper = hold Caps Lock).
 - New GUI app: add its cask to `modules/darwin/homebrew.nix`. Anything
   installed with `brew` but not listed there is removed on the next rebuild.
+- App that should start at login: add it to `modules/darwin/login-items.nix`
+  and leave the app's own "Launch at login" switch off.
 
 ## Bootstrap on a fresh Mac
 

@@ -165,7 +165,9 @@ let
 
   settings = {
     config-version = 2;
-    start-at-login = true;
+    # Started by modules/darwin/login-items.nix instead; false also removes
+    # the login item AeroSpace registered for itself earlier.
+    start-at-login = false;
 
     # Visible edges of stacked windows in an accordion, in points.
     accordion-padding = 40;

@@ -5,6 +5,7 @@
     ./defaults.nix
     ./security.nix
     ./homebrew.nix
+    ./login-items.nix
     ./adopted.nix
   ];
 
