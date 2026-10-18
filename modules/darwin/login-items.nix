@@ -7,29 +7,60 @@
 #
 # Karabiner-Elements isn't listed: it installs its own background services,
 # which start at login once allowed in System Settings.
-{ lib, ... }:
+{ lib, pkgs, ... }:
 let
   apps = {
-    AeroSpace = "bobko.aerospace";
-    SwipeAeroSpace = "club.mediosz.SwipeAeroSpace";
+    "AeroSpace" = "bobko.aerospace";
+    "SwipeAeroSpace" = "club.mediosz.SwipeAeroSpace";
+    # Macs Fan Control, renamed.
+    "Fan Control" = "com.crystalidea.macsfancontrol";
   };
+
+  # System Settings → General → Login Items lists an agent under the file
+  # name of the program it runs. Each agent runs a script named after its app,
+  # so the list says "AeroSpace" instead of "open". The scripts are copied
+  # out of the Nix store so their paths stay the same across rebuilds.
+  dir = "/Library/Application Support/nix-darwin/Login Items";
+  path = name: "${dir}/${name}";
+  script =
+    bundleId:
+    pkgs.writeText "login-item" ''
+      #!/bin/sh
+      # -g: the app opens without taking focus. -j: it opens hidden, so an
+      # app that shows a window on launch doesn't show it at login.
+      exec /usr/bin/open -g -j -b ${bundleId}
+    '';
+  label = name: lib.toLower (lib.replaceStrings [ " " ] [ "" ] name);
 in
 {
   launchd.user.agents = lib.mapAttrs' (
-    name: bundleId:
-    lib.nameValuePair (lib.toLower name) {
+    name: _:
+    lib.nameValuePair (label name) {
       serviceConfig = {
-        # -g: the app opens without taking focus.
-        ProgramArguments = [
-          "/usr/bin/open"
-          "-g"
-          "-b"
-          bundleId
-        ];
+        ProgramArguments = [ (path name) ];
         RunAtLoad = true;
         # Only in a logged-in desktop session, not over SSH.
         LimitLoadToSessionType = "Aqua";
       };
     }
   ) apps;
+
+  # Before the agents load, so each finds its script. Scripts of apps taken
+  # off the list are removed.
+  system.activationScripts.preActivation.text = ''
+    mkdir -p ${lib.escapeShellArg dir}
+    ${lib.concatStrings (
+      lib.mapAttrsToList (name: bundleId: ''
+        cmp -s ${script bundleId} ${lib.escapeShellArg (path name)} \
+          || install -m 755 ${script bundleId} ${lib.escapeShellArg (path name)}
+      '') apps
+    )}
+    for f in ${lib.escapeShellArg dir}/*; do
+      [ -e "$f" ] || continue
+      case "''${f##*/}" in
+        ${lib.concatStringsSep " | " (map lib.escapeShellArg (lib.attrNames apps))}) ;;
+        *) rm -f "$f" ;;
+      esac
+    done
+  '';
 }
