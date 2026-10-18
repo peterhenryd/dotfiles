@@ -15,6 +15,7 @@
     ./karabiner.nix
     ./swipeaerospace.nix
     ./dotfinder.nix
+    ./dev.nix
   ];
 
   options.dotfiles.path = lib.mkOption {

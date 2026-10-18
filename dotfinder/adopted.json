@@ -1,5 +1,44 @@
 {
   "brews": [],
-  "casks": [],
-  "defaults": {}
+  "casks": [
+    "anki",
+    "bruno",
+    "claude",
+    "discord",
+    "microsoft-word",
+    "pcsx2",
+    "photocraft",
+    "protonvpn",
+    "spotify",
+    "vectorcraft"
+  ],
+  "defaults": {},
+  "manualApps": [
+    "GroupMe",
+    "OpenEmu",
+    "Phosphor",
+    "SwipeAeroSpace"
+  ],
+  "masApps": {
+    "AdGuard Mini": 1440147259,
+    "Final Cut Pro Creator Studio": 1631624924,
+    "Glasp Web Highlighter": 1605690124,
+    "Keynote Creator Studio": 361285480,
+    "Logic Pro Creator Studio": 1615087040,
+    "Numbers Creator Studio": 361304891,
+    "Pages Creator Studio": 361309726,
+    "Userscripts": 1463298887,
+    "WireGuard": 1451685025
+  },
+  "renames": {
+    "macs-fan-control": {
+      "from": "Macs Fan Control.app",
+      "to": "Fan Control.app"
+    }
+  },
+  "uvTools": [
+    "huggingface-hub",
+    "mlx-lm",
+    "mlx-vlm"
+  ]
 }

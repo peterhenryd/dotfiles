@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Fails if key material appears in this repo: SSH public or private keys,
-# age keys, PEM/PGP private keys, WireGuard keys, GitHub tokens.
+# age keys, PEM/PGP private keys, WireGuard keys, GitHub tokens, Anthropic
+# API keys.
 #
 #   check-no-keys.sh --tree DIR   scan every file under DIR (used by `nix flake check`)
 #   check-no-keys.sh --staged     scan the staged version of each staged file (pre-commit)
@@ -18,6 +19,8 @@ patterns=(
   '(PrivateKey|PublicKey|PresharedKey)[[:space:]]*='
   # GitHub tokens
   '(gh[pousr]_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{50,})'
+  # Anthropic API keys
+  'sk-ant-[A-Za-z0-9_-]{20,}'
 )
 # A bare 32-byte base64 value (WireGuard key format), excluding Nix hashes.
 wg_bare='(^|[^A-Za-z0-9+/=-])[A-Za-z0-9+/]{42}[AEIMQUYcgkosw048]=($|[^A-Za-z0-9+/=])'

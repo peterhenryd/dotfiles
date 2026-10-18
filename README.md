@@ -18,6 +18,8 @@ modules/darwin/            system: defaults, security, Homebrew, Nix
   login-items.nix          apps started at login
   adopted.nix              reads dotfinder/adopted.json
 home/                      user: zsh, git, Ghostty, Neovim, AeroSpace, Karabiner
+  dev.nix                  Cargo, OpenCode and Claude Code settings; their PATH entries
+  claude/settings.json     Claude Code settings, merged into ~/.claude/settings.json
   nvim/                    plain Lua, linked into ~/.config/nvim
   karabiner/               linked into ~/.config/karabiner
   dotfinder.nix            dotfinder and its config, including the vault's file list
@@ -37,20 +39,37 @@ configs link to that working copy, so changes they write show up in
 - `dotfinder drift`: what changed on the Mac since the last rebuild.
 - `dotfinder audit`: everything on the Mac the config doesn't capture.
 - `dotfinder adopt`: go through those changes one by one, adding each to the
-  config or ignoring it. Commit `dotfinder/` afterwards. Private ignores stay
-  out of the repo; `dotfinder vault backup` saves them.
+  config or ignoring it. Private ignores stay out of the repo;
+  `dotfinder vault backup` saves them.
+- `dotfinder push`: after changing the config, by hand or with `adopt`:
+  shows what changed, asks for a commit message, commits and pushes.
 - `dotfinder vault backup`: save the private files listed in
   `home/dotfinder.nix` into the vault.
-- `nix flake update`, `dotfinder rebuild`, then `brew upgrade`: update
+- `dotfinder apps backup`: copy your own things in `~/Applications` (web
+  apps, script apps, folders of aliases) to iCloud Drive/Backups/Applications.
+- `nix flake update`, `dotfinder rebuild`, then `dotfinder upgrade`: update
   everything. The rebuild picks up new Nix packages and Homebrew's package
-  lists but never upgrades an installed app; `brew upgrade` does, except for
-  apps that update themselves (such as Parallels), which it leaves to their
-  own updaters.
+  lists but never upgrades an installed app; `dotfinder upgrade` runs
+  `brew upgrade`, which does, except for apps that update themselves (such
+  as Parallels), which it leaves to their own updaters. Renamed apps get
+  their Homebrew names back while it runs. It then runs
+  `uv tool upgrade --all`.
 - Hyper + /: AeroSpace cheat sheet, in TextEdit (Hyper = hold Caps Lock).
 - New GUI app: add its cask to `modules/darwin/homebrew.nix`. Anything
   installed with `brew` but not listed there is removed on the next rebuild.
-- App that should start at login: add it to `modules/darwin/login-items.nix`
-  and leave the app's own "Launch at login" switch off.
+- Python command-line tool nixpkgs lacks or lags on (mlx-lm): install it
+  with `uv tool install`, then add it with `dotfinder adopt --audit`.
+  Switches install listed tools that are missing.
+- Shell aliases: `programs.zsh.shellAliases` in `home/zsh.nix`. zsh reads
+  its config from `~/.config/zsh`, so `~/.zshrc`, `~/.zprofile` and
+  `~/.profile` do nothing; when an installer adds a PATH line to one of them
+  (`dotfinder audit` shows the file), add the folder to `home.sessionPath`
+  instead and delete the file.
+- App that should start at login: add it and its bundle ID to
+  `modules/darwin/login-items.nix` and leave the app's own "Launch at login"
+  switch off.
+- Renaming a Homebrew app: rename it in Finder, then record the rename with
+  `dotfinder adopt --audit`, so new Macs get the same name.
 
 ## Bootstrap on a fresh Mac
 
@@ -76,5 +95,6 @@ configs link to that working copy, so changes they write show up in
 7. `nix run ~/.config/dotfiles#swipeaerospace`, then allow it under
    Accessibility.
 8. Let iCloud Drive download `~/Documents/Recovery/Vault.kdbx`, then restore
-   the private files: `dotfinder vault restore`.
+   the private files: `dotfinder vault restore`. Restore your own apps to
+   `~/Applications`: `dotfinder apps restore`.
 9. `dotfinder baseline`.

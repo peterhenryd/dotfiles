@@ -1,3 +1,28 @@
 {
-  "ignore": []
+  "ignore": [
+    "cmd:cargo-install:rmlx-cli",
+    "dir:~/.config:gh",
+    "dir:~/.config:git",
+    "dir:~/.config:opencode",
+    "dir:~/.config:swiftpm",
+    "dir:~/.config:zsh",
+    "dir:~/Library/Fonts:HomeManager",
+    "dir:~/Library/LaunchAgents:com.peterhenryd.meiden.plist",
+    "dir:~/Library/Services:Claude - ask.workflow",
+    "dir:~/Library/Services:Claude - codeHere.workflow",
+    "dir:~/Library/Services:Claude - send.workflow",
+    "dir:~:.agents",
+    "dir:~:.android",
+    "dir:~:.cargo",
+    "dir:~:.cargo-shared-target",
+    "dir:~:.claude",
+    "dir:~:.claude.json",
+    "dir:~:.homebrew",
+    "dir:~:.meiden",
+    "dir:~:.mlx",
+    "dir:~:.npm",
+    "dir:~:.opencode",
+    "dir:~:.rustup",
+    "dir:~:.swiftpm"
+  ]
 }
