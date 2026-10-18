@@ -21,6 +21,7 @@ home/                      user: zsh, git, Ghostty, Neovim, AeroSpace, Karabiner
   dev.nix                  Cargo, OpenCode and Claude Code settings; their PATH entries
   claude/settings.json     Claude Code settings, merged into ~/.claude/settings.json
   nvim/                    plain Lua, linked into ~/.config/nvim
+  ghostty/                 Ghostty's config file, linked into ~/.config/ghostty
   karabiner/               linked into ~/.config/karabiner
   dotfinder.nix            dotfinder and its config, including the vault's file list
 dotfinder/                 written by `dotfinder adopt`: adopted items, ignore rules
@@ -28,9 +29,9 @@ apps/swipeaerospace.nix    `nix run .#swipeaerospace`
 scripts/check-no-keys.sh   used by the pre-commit hook and `nix flake check`
 ```
 
-The repo is checked out at `~/.config/dotfiles`. Neovim's and Karabiner's
-configs link to that working copy, so changes they write show up in
-`git status`.
+The repo is checked out at `~/.config/dotfiles`. Neovim's, Ghostty's and
+Karabiner's configs link to that working copy, so changes to them apply
+without a rebuild and show up in `git status`.
 
 ## Daily use
 
