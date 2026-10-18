@@ -34,6 +34,11 @@ in
   # `dotfinder upgrade` upgrades them. Entries take what `uv tool install`
   # takes, extras and versions included ("mlx-lm[train]>=0.20"). Tools taken
   # off the list stay installed until `uv tool uninstall`.
+  #
+  # They're installed with Python 3.12. Left to choose, uv downloads the
+  # newest Python, which packages with compiled parts may not have wheels for
+  # yet (mlx-lm's sentencepiece had none for 3.15); uv then builds them from
+  # source, which needs cmake and fails during a switch.
   home-manager.users.${config.system.primaryUser} =
     { lib, pkgs, ... }:
     {
@@ -46,7 +51,7 @@ in
             name="''${spec%%[][=<>~!@; ]*}"
             case "$uvInstalled" in
               *" $name "*) ;;
-              *) run ${pkgs.uv}/bin/uv tool install "$spec" || echo "uv couldn't install $spec" >&2 ;;
+              *) run ${pkgs.uv}/bin/uv tool install --python 3.12 "$spec" || echo "uv couldn't install $spec" >&2 ;;
             esac
           done
         ''

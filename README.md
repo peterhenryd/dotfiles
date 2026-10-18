@@ -79,12 +79,18 @@ without a rebuild and show up in `git status`.
 2. Install Nix:
    `sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon`
 3. Clone: `git clone https://github.com/peterhenryd/dotfiles ~/.config/dotfiles`
-4. First switch:
-   `sudo nix --extra-experimental-features 'nix-command flakes' run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/dotfiles`
+4. In System Settings → Privacy & Security → App Management, turn on
+   Terminal (add it with + if it isn't listed). Homebrew needs it to install
+   and replace apps; without it, the switch fails partway through the casks.
+   The same goes for any other terminal you run `dotfinder rebuild` from.
+5. First switch, naming the configuration (`darwin-rebuild` otherwise picks
+   one by the Mac's current name, which a fresh install may not match; the
+   switch then renames the Mac to Peters-MacBook-Pro):
+   `sudo nix --extra-experimental-features 'nix-command flakes' run nix-darwin/master#darwin-rebuild -- switch --flake ~/.config/dotfiles#Peters-MacBook-Pro`
    If it stops on unrecognized files in /etc, rename each one it lists to
    `<name>.before-nix-darwin` and run it again.
-5. Log out and back in.
-6. Open AeroSpace and Karabiner-Elements once and grant what they ask for.
+6. Log out and back in.
+7. Open AeroSpace and Karabiner-Elements once and grant what they ask for.
    Open Syntax Highlight once so macOS finds its Quick Look extension. Its
    settings live where this config doesn't reach, so set them in the app:
    View → Show advanced settings, then under General keep the RTF rendering
@@ -93,10 +99,10 @@ without a rebuild and show up in `git status`.
    scheme as dark and a dark one as light
    (github.com/sbarex/SourceCodeSyntaxHighlight/issues/309). HTML previews
    follow dark mode, but open at a fixed size instead of fitting the file.
-7. `nix run ~/.config/dotfiles#swipeaerospace`, then allow it under
+8. `nix run ~/.config/dotfiles#swipeaerospace`, then allow it under
    Accessibility.
-8. Let iCloud Drive download `~/Documents/Recovery/Vault.kdbx`, then restore
+9. Let iCloud Drive download `~/Documents/Recovery/Vault.kdbx`, then restore
    the private files: `dotfinder vault restore`. Restore your own apps to
    `~/Applications`: `dotfinder apps restore`.
-9. Download the Rust toolchain: `rustup default stable`.
-10. `dotfinder baseline`.
+10. Download the Rust toolchain: `rustup default stable`.
+11. `dotfinder baseline`.

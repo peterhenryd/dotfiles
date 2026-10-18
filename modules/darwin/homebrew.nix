@@ -56,8 +56,6 @@ in
       "syntax-highlight"
 
       # Already installed with brew before this config
-      "adobe-creative-cloud"
-      "antigravity-cli"
       "bettertouchtool"
       "claude-code"
       "ghostty"
