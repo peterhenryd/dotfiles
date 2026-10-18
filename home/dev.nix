@@ -1,21 +1,20 @@
-# Settings for development tools that are installed outside Nix: Cargo
-# (through rustup), OpenCode (its own installer, which keeps it updated) and
-# Claude Code (the claude-code cask).
+# Development tools: rustup (with Cargo's settings), OpenCode and Claude
+# Code's settings. Claude Code itself comes from the claude-code cask.
 { config, pkgs, ... }:
 let
   home = config.home.homeDirectory;
 in
 {
   home.sessionPath = [
-    # rustup's cargo and rustc, and the commands `cargo install` adds.
+    # The commands `cargo install` adds.
     "${home}/.cargo/bin"
-    "${home}/.opencode/bin"
     # Launchers JetBrains Toolbox makes for its IDEs.
     "${home}/Library/Application Support/JetBrains/Toolbox/scripts"
   ];
 
   programs.cargo = {
     enable = true;
+    # rustup provides cargo.
     package = null;
     settings.build = {
       # One build folder for every project instead of a target/ in each.
@@ -27,6 +26,9 @@ in
   };
 
   home.packages = with pkgs; [
+    # cargo, rustc and the rest. Toolchains live in ~/.rustup; on a new Mac,
+    # `rustup default stable` downloads the first one.
+    rustup
     # `sccache --show-stats` and friends.
     sccache
     # Builds macOS .app bundles from Rust projects.
@@ -35,9 +37,10 @@ in
     cargo-make
   ];
 
+  # From nixpkgs, whose package turns off OpenCode's own updater;
+  # `nix flake update` updates it.
   programs.opencode = {
     enable = true;
-    package = null;
     settings = {
       provider.mlx = {
         npm = "@ai-sdk/openai-compatible";

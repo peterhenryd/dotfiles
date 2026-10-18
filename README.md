@@ -97,4 +97,5 @@ configs link to that working copy, so changes they write show up in
 8. Let iCloud Drive download `~/Documents/Recovery/Vault.kdbx`, then restore
    the private files: `dotfinder vault restore`. Restore your own apps to
    `~/Applications`: `dotfinder apps restore`.
-9. `dotfinder baseline`.
+9. Download the Rust toolchain: `rustup default stable`.
+10. `dotfinder baseline`.

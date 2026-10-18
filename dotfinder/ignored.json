@@ -21,7 +21,6 @@
     "dir:~:.meiden",
     "dir:~:.mlx",
     "dir:~:.npm",
-    "dir:~:.opencode",
     "dir:~:.rustup",
     "dir:~:.swiftpm"
   ]
