@@ -61,7 +61,6 @@ in
       "bettertouchtool"
       "claude-code"
       "ghostty"
-      "jetbrains-toolbox"
       "macs-fan-control"
       "parallels"
       "postgres-app"
@@ -82,20 +81,7 @@ in
       "pkgconf"
     ];
 
-    # Apps installed by hand. A cask can't install over an existing copy, so to
-    # bring one under Homebrew: quit it, move the .app to the Trash (its data
-    # in ~/Library stays), uncomment it, and switch.
-    #
-    #   "anki"
-    #   "bruno"
-    #   "discord"
-    #   "microsoft-word"
-    #   "openemu"
-    #   "pcsx2"
-    #   "protonvpn"
-    #   "spotify"
-    #
-    # No cask exists for AdGuard Mini or GroupMe. Xcode, WireGuard and the
-    # Creator Studio apps come from the App Store.
+    # Casks, App Store apps and apps installed by hand that `dotfinder adopt`
+    # added are listed in dotfinder/adopted.json.
   };
 }

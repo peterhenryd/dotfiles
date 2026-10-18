@@ -5,12 +5,8 @@ let
   home = config.home.homeDirectory;
 in
 {
-  home.sessionPath = [
-    # The commands `cargo install` adds.
-    "${home}/.cargo/bin"
-    # Launchers JetBrains Toolbox makes for its IDEs.
-    "${home}/Library/Application Support/JetBrains/Toolbox/scripts"
-  ];
+  # The commands `cargo install` adds.
+  home.sessionPath = [ "${home}/.cargo/bin" ];
 
   programs.cargo = {
     enable = true;
