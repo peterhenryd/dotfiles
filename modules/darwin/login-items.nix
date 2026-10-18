@@ -9,11 +9,17 @@
 # which start at login once allowed in System Settings.
 { lib, pkgs, ... }:
 let
+  # `args` go to the app when the agent starts it.
   apps = {
-    "AeroSpace" = "bobko.aerospace";
-    "SwipeAeroSpace" = "club.mediosz.SwipeAeroSpace";
-    # Macs Fan Control, renamed.
-    "Fan Control" = "com.crystalidea.macsfancontrol";
+    "AeroSpace".id = "bobko.aerospace";
+    "SwipeAeroSpace".id = "club.mediosz.SwipeAeroSpace";
+    # Macs Fan Control, renamed. `/minimized` is the flag its own "Autostart
+    # minimized" setting uses: it starts in the menu bar with no window.
+    "Fan Control" = {
+      id = "com.crystalidea.macsfancontrol";
+      args = [ "/minimized" ];
+    };
+    "KeePassXC".id = "org.keepassxc.keepassxc";
   };
 
   # System Settings → General → Login Items lists an agent under the file
@@ -23,12 +29,14 @@ let
   dir = "/Library/Application Support/nix-darwin/Login Items";
   path = name: "${dir}/${name}";
   script =
-    bundleId:
+    app:
     pkgs.writeText "login-item" ''
       #!/bin/sh
       # -g: the app opens without taking focus. -j: it opens hidden, so an
       # app that shows a window on launch doesn't show it at login.
-      exec /usr/bin/open -g -j -b ${bundleId}
+      exec /usr/bin/open -g -j -b ${app.id}${
+        lib.optionalString (app.args or [ ] != [ ]) " --args ${lib.escapeShellArgs app.args}"
+      }
     '';
   label = name: lib.toLower (lib.replaceStrings [ " " ] [ "" ] name);
 in
@@ -50,9 +58,9 @@ in
   system.activationScripts.preActivation.text = ''
     mkdir -p ${lib.escapeShellArg dir}
     ${lib.concatStrings (
-      lib.mapAttrsToList (name: bundleId: ''
-        cmp -s ${script bundleId} ${lib.escapeShellArg (path name)} \
-          || install -m 755 ${script bundleId} ${lib.escapeShellArg (path name)}
+      lib.mapAttrsToList (name: app: ''
+        cmp -s ${script app} ${lib.escapeShellArg (path name)} \
+          || install -m 755 ${script app} ${lib.escapeShellArg (path name)}
       '') apps
     )}
     for f in ${lib.escapeShellArg dir}/*; do
